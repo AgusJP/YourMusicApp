@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YourMusic">
         <activity
+            android:name=".v1.views.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/Theme.YourMusic.NoActionBar"></activity>
+        <activity
+            android:name=".v1.views.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.YourMusic.NoActionBar" />
+        <activity
             android:name=".v1.views.FormActivity"
             android:label="@string/title_activity_form"
-            android:theme="@style/Theme.YourMusic.NoActionBar"></activity>
+            android:theme="@style/Theme.YourMusic.NoActionBar" />
         <activity
             android:name=".v1.views.ListActivity"
             android:label="@string/title_activity_list"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2FAA3030"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TextView
@@ -11,7 +12,8 @@
         android:layout_width="263dp"
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
-        android:text="Se han encontrado 10 elementos..."
+        android:fontFamily="@font/aldrich"
+        android:text="@string/findElements"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,8 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.yourmusic.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_sort"
+        android:icon="@android:drawable/ic_menu_share"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="@string/action_sort"
+        android:fontFamily="@font/aldrich"
+        app:showAsAction="never|withText" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="?android:attr/actionModeWebSearchDrawable"
+        android:orderInCategory="90"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_configuration"
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="100"
+        android:title="@string/action_configuration"
+        android:fontFamily="@font/aldrich"
+        app:showAsAction="never|withText" />
+    <item
+        android:id="@+id/action_help"
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="100"
+        android:title="@string/action_help"
+        android:fontFamily="@font/aldrich"
+        app:showAsAction="never|withText" />
+    <item
+        android:id="@+id/action_about"
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="100"
+        android:title="@string/action_aboutApp"
+        android:fontFamily="@font/aldrich"
+        app:showAsAction="never|withText" />
 </menu>

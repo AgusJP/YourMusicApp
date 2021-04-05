@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2FAA3030"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-26dp">
+        tools:layout_editor_absoluteX="-55dp"
+        tools:layout_editor_absoluteY="55dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#2FAA3030">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="204dp"
-                android:layout_height="168dp"
-                android:layout_marginTop="52dp"
-                android:background="@drawable/ic_launcher_foreground"
+                android:layout_width="165dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/ic_notas_musicales"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.478"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,19 +32,20 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="235dp"
-                android:text="Clean Image"
+                android:layout_marginTop="200dp"
+                android:backgroundTint="@color/teal_200"
+                android:text="@string/cleanImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:id="@+id/artistInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="350dp"
+                android:layout_marginTop="280dp"
                 android:layout_marginEnd="50dp"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
@@ -52,19 +54,20 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/artistText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Artist"
+                    android:hint="@string/artist"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
+                android:id="@+id/albumInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="435dp"
+                android:layout_marginTop="410dp"
                 android:layout_marginEnd="50dp"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,20 +75,21 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/albumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Song"
+                    android:hint="@string/albumName"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout5"
+                android:id="@+id/companyInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="525dp"
+                android:layout_marginTop="530dp"
                 android:layout_marginEnd="50dp"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,30 +97,31 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Company"
+                    android:hint="@string/company"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout8"
+                android:id="@+id/appreciationInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="58dp"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="615dp"
+                android:layout_marginTop="650dp"
                 android:layout_marginEnd="50dp"
-                app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/appreciationText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Key"
-                    android:inputType="numberPassword" />
+                    android:hint="@string/appreciation"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
@@ -124,7 +129,7 @@
                 android:layout_width="111dp"
                 android:layout_height="41dp"
                 android:layout_marginStart="110dp"
-                android:layout_marginTop="700dp"
+                android:layout_marginTop="760dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -134,27 +139,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
-                android:layout_marginTop="710dp"
-                android:text="Switch"
+                android:layout_marginTop="770dp"
+                android:text="@string/Switch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout9"
+                android:id="@+id/dateInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:layout_marginTop="765dp"
+                android:layout_marginTop="830dp"
                 android:layout_marginEnd="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dateText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date"
+                    android:hint="@string/date"
                     android:inputType="date" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -164,9 +170,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="850dp"
+                android:layout_marginTop="930dp"
                 android:layout_marginBottom="30dp"
-                android:text="Delete"
+                android:backgroundTint="@color/design_default_color_error"
+                android:text="@string/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -175,10 +182,11 @@
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="850dp"
+                android:layout_marginTop="930dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp"
-                android:text="SAVE"
+                android:backgroundTint="@color/teal_200"
+                android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -187,8 +195,8 @@
                 android:id="@+id/imageView3"
                 android:layout_width="41dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="360dp"
-                app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
+                android:layout_marginTop="295dp"
+                app:layout_constraintEnd_toStartOf="@+id/artistInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_cantante" />
@@ -197,8 +205,8 @@
                 android:id="@+id/imageView4"
                 android:layout_width="36dp"
                 android:layout_height="33dp"
-                android:layout_marginTop="55dp"
-                app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
+                android:layout_marginTop="85dp"
+                app:layout_constraintEnd_toStartOf="@+id/companyInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5"
                 app:srcCompat="@drawable/ic_grupo_de_personas_dibujadas_a_mano_de_personas" />
@@ -207,47 +215,35 @@
                 android:id="@+id/imageView5"
                 android:layout_width="38dp"
                 android:layout_height="34dp"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="100dp"
                 android:layout_weight="1"
-                app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
+                app:layout_constraintEnd_toStartOf="@+id/albumInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="40dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="57dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/textInputLayout8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4"
-                app:srcCompat="@drawable/ic_key" />
-
-            <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/imageDateForm"
                 android:layout_width="46dp"
                 android:layout_height="37dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="105dp"
-                app:layout_constraintEnd_toStartOf="@+id/textInputLayout9"
+                android:layout_marginTop="140dp"
+                app:layout_constraintEnd_toStartOf="@+id/dateInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/appreciationInputLayout"
                 app:srcCompat="@drawable/ic_anadir_evento" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/spinnerAddForm"
                 android:layout_width="41dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="11dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="57dp"
                 android:layout_marginEnd="43dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/spinner"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/appreciationInputLayout"
                 app:srcCompat="@drawable/ic_anadir" />
 
             <ImageView
@@ -255,13 +251,25 @@
                 android:layout_width="29dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="62dp"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toStartOf="@+id/switch2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/appreciationInputLayout"
                 app:srcCompat="@drawable/ic_turn_off" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="33dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="105dp"
+                android:layout_marginTop="83dp"
+                android:layout_marginEnd="9dp"
+                app:layout_constraintEnd_toStartOf="@+id/appreciationInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                app:srcCompat="@drawable/ic_buena_valoracion" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

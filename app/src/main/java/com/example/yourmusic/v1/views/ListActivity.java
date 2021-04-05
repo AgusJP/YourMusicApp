@@ -2,19 +2,14 @@ package com.example.yourmusic.v1.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.example.yourmusic.R;
 import com.example.yourmusic.v1.interfaces.ListInterface;
 import com.example.yourmusic.v1.presenters.ListPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -58,8 +53,20 @@ public class ListActivity extends AppCompatActivity implements ListInterface.Vie
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            presenter.onClickSearchIcon();
+        }
+        if (id == R.id.action_sort) {
             return true;
+        }
+        if (id == R.id.action_configuration) {
+            return true;
+        }
+        if (id == R.id.action_help) {
+            return true;
+        }
+        if (id == R.id.action_about) {
+            presenter.onClickAboutAppCRUD();
         }
 
         return super.onOptionsItemSelected(item);
@@ -69,6 +76,18 @@ public class ListActivity extends AppCompatActivity implements ListInterface.Vie
     public void startFormActivity() {
         Log.d(TAG,"Starting FormActivity");
         Intent intent = new Intent(getApplicationContext(), FormActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startSearchActivity() {
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startAboutActivity() {
+        Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
         startActivity(intent);
     }
 

@@ -15,4 +15,15 @@ public class ListPresenter implements ListInterface.Presenter {
     public void onClickAddAlbum() {
         view.startFormActivity();
     }
+
+    @Override
+    public void onClickSearchIcon() {
+        view.startSearchActivity();
+    }
+
+    @Override
+    public void onClickAboutAppCRUD() {
+        view.startAboutActivity();
+    }
+
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_sort">Ordenar</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="artist">Artista</string>
+    <string name="albumName">Nombre del album</string>
+    <string name="company">Discográfica</string>
+    <string name="appreciation">Valoración</string>
+    <string name="date">Fecha</string>
+    <string name="delete">Eliminar</string>
+    <string name="save">Guardar</string>
+    <string name="cleanImage">Limpiar Imagen</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_configuration">Configuración</string>
+    <string name="action_help">Ayuda</string>
+    <string name="action_aboutApp">Sobre AppCRUD</string>
+    <string name="findElements">Se han encontrado 10 elementos ...</string>
+    <string name="searchbutton">Buscar</string>
+    <string name="artistNameError">El nombre del artista debe empezar por una única letra en mayúscula y tener más de 3 letras y menos de 15. Puedes escribir números también.</string>
+    <string name="dateError">El formato de fecha válido es dd/mm/yyyy</string>
+    <string name="companyNameError">El nombre de la compañia debe empezar por una única letra en mayúscula, tener 5 letras como mínimo y 15 como máximo.</string>
+    <string name="albumNameError">El nombre del album debe empezar por una única letra en mayúscula, tener 5 letras como mínimo y 20 como máximo.</string>
+    <string name="appreciationError">Dígitos entre el 0 y el 10, ambos incluidos.</string>
+    <string name="add">Añadir</string>
+    <string name="cancel">Cancelar</string>
+    <string name="acceptDeleteButton">Eliminar</string>
+    <string name="deleteTitleDialog">Eliminar Album.</string>
+    <string name="deleteMessageDialog">¿Estas seguro de que desea eliminar este álbum?</string>
+    <string name="contact_agustin_jimenez_polonio_gmail_com">Contacto: agustin.jimenez.polonio@gmail.com</string>
+    <string name="developed_by">Desarrollado por:</string>
+</resources>
