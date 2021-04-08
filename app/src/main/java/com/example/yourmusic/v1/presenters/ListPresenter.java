@@ -1,6 +1,8 @@
 package com.example.yourmusic.v1.presenters;
 
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.yourmusic.v1.interfaces.ListInterface;
 
 public class ListPresenter implements ListInterface.Presenter {
@@ -24,6 +26,16 @@ public class ListPresenter implements ListInterface.Presenter {
     @Override
     public void onClickAboutAppCRUD() {
         view.startAboutActivity();
+    }
+
+    @Override
+    public void onSwipedAlbum(RecyclerView.ViewHolder target) {
+        view.onSwipedRemove(target);
+    }
+
+    @Override
+    public void onClickRecyclerViewAlbum(String id){
+        view.startFormActivity(id);
     }
 
 }

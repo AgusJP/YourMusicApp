@@ -44,5 +44,11 @@
     <string name="agust_n_jim_nez_polonio" translatable="false">Agustín Jiménez Polonio</string>
     <string name="developed_by">Developed by:</string>
     <string name="yourmusic" translatable="false">YourMusic</string>
+    <string name="deleteAlbumSuccess">" successfully removed"</string>
+    <string name="deleteAlbumError">Could not delete this album.</string>
+    <string name="albumToast" translatable="false" />
+    <string name="denied">Denied permission</string>
+    <string name="choose_picture">Choose picture</string>
+    <string name="write_permission_denied">Denied permission</string>
 
 </resources>

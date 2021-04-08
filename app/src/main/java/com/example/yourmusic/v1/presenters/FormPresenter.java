@@ -1,14 +1,21 @@
 package com.example.yourmusic.v1.presenters;
 
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.util.Log;
+
+import androidx.core.content.ContextCompat;
+
 import com.example.yourmusic.R;
 import com.example.yourmusic.v1.interfaces.FormInterface;
+import com.example.yourmusic.v1.views.MyApp;
 
 
 public class FormPresenter implements FormInterface.Presenter {
 
     private FormInterface.View view;
-
 
     public FormPresenter(FormInterface.View view) {
         this.view = view;
@@ -56,6 +63,34 @@ public class FormPresenter implements FormInterface.Presenter {
     @Override
     public void onClickDeleteButton() {
         view.DeleteAlbum();
+    }
+
+    @Override
+    public void onClickAlbumImage() {
+        int CameraPermission= ContextCompat.checkSelfPermission(MyApp.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.d("FormPresenter", "Camera Permission: " + CameraPermission);
+        if(CameraPermission != PackageManager.PERMISSION_GRANTED){
+            //Permiso denegado.
+            view.showRequestPermission();
+        }else{
+            //Permiso aceptado.
+            view.selectImageFromGallery();
+        }
+    }
+
+    @Override
+    public void onClickCleanAlbum() {
+        view.cleanAlbum();
+    }
+
+    @Override
+    public void permissionGranted() {
+        view.selectImageFromGallery();
+    }
+
+    @Override
+    public void permissionDenied() {
+        view.showPermissionDenied();
     }
 
 

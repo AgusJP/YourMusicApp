@@ -22,4 +22,16 @@
     <style name="Theme.YourMusic.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.YourMusic.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="roundimageview">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="backgroundText">
+        <item name="android:background">@drawable/rounded_corner</item>
+        <item name="android:paddingLeft">20dp</item>
+    </style>
+
 </resources>

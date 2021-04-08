@@ -1,8 +1,16 @@
 package com.example.yourmusic.v1.views;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.yourmusic.v1.interfaces.FormInterface;
@@ -11,9 +19,12 @@ import com.example.yourmusic.v1.presenters.FormPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,18 +41,24 @@ import android.widget.Spinner;
 import com.example.yourmusic.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class FormActivity extends AppCompatActivity implements FormInterface.View {
 
     String TAG = "YourMusic/FormActivity";
+    final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
+    private static final int REQUEST_SELECT_IMAGE = 200;
+    private ConstraintLayout constraintLayoutFormActivity;
     private FormInterface.Presenter presenter;
     private Context context;
     Button buttonSave;
     private Spinner spinner = null;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> genero = null;
+    private String id;
 
     EditText editTextCalendar;
     ImageView imageViewCalendar;
@@ -67,6 +84,9 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
     EditText dateText;
     TextInputLayout dateInputLayout;
 
+    ImageView imageAlbum;
+    Button cleanImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG,"Starting onCreate");
@@ -88,6 +108,27 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             }
         });
 
+        constraintLayoutFormActivity = findViewById(R.id.constraintForm);
+
+        //Damos click en la imagen del album o del background
+        imageAlbum = findViewById(R.id.imageView);
+        imageAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onClickAlbumImage();
+            }
+        });
+
+        //Quitar la imagen actual
+        cleanImage = findViewById(R.id.button);
+        cleanImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onClickCleanAlbum();
+            }
+        });
+
+        //Boton guardar nos lleva al listado
         buttonSave = findViewById(R.id.save);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +138,7 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             }
         });
 
+        //Boton eliminar nos abre en alertDialog. Si presionamos cancel no hace nada y si presionamos aceptar nos lleva a listado.
         Button DeleteButton = findViewById(R.id.delete);
         DeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +147,17 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             }
         });
 
-        //Create Spinner
+        //Recuperar el Id del Album del LISTADO
+        id = getIntent().getStringExtra("id");
+        if(id != null){
+            Log.d(TAG,"Recuperando el Id");
+            artistText = findViewById(R.id.artistText);
+            artistText.setText(id);
+        }else{
+            Log.d(TAG,"Deshabilitar el boton de eliminar");
+        }
+
+        //Creación del Spinner
         genero = new ArrayList<String>();
         genero.add(getString(R.string.pop));
         genero.add(getString(R.string.rock));
@@ -127,7 +179,7 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
         });
 
 
-
+        //Toda la parte de manejo de errores de los campos del formulario
         album = new AlbumEntity();
 
         artistText = findViewById(R.id.artistText);
@@ -229,8 +281,6 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
                 showCalendar();
             }
         });
-
-
     }
 
     public void showCalendar(){
@@ -309,6 +359,88 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (REQUEST_SELECT_IMAGE):
+                if (resultCode == Activity.RESULT_OK) {
+                    // Se carga la imagen desde un objeto Bitmap
+                    Uri selectedImage = data.getData();
+                    String selectedPath = selectedImage.getPath();
+
+                    if (selectedPath != null) {
+                        // Se leen los bytes de la imagen
+                        InputStream imageStream = null;
+                        try {
+                            imageStream = getContentResolver().openInputStream(selectedImage);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Se transformam los bytes de la imagen a un Bitmap
+                        Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 200, 200, false);
+
+                        // Quitamos del ImagenView el background
+                        imageAlbum.setBackground(null);
+
+                        // Se carga el Bitmap en el ImageView
+                        imageAlbum.setImageBitmap(bmp);
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void showRequestPermission() {
+        // Permiso denegado
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            ActivityCompat.requestPermissions(FormActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
+            // Una vez que se pide aceptar o rechazar el permiso se ejecuta el método "onRequestPermissionsResult" para manejar la respuesta
+            // Si el usuario marca "No preguntar más" no se volverá a mostrar este diálogo
+        }else{
+            Snackbar.make(constraintLayoutFormActivity, getResources().getString(R.string.denied), Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //Toast.makeText(this, "Permission Granted!", Toast.LENGTH_SHORT).show();
+            //Selecciona la imagen de la galería
+            presenter.permissionGranted();
+        } else {
+            //Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            //Muestra el error del permiso denegado
+            presenter.permissionDenied();
+        }
+    }
+
+    @Override
+    public void selectImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(intent, getResources().getString(R.string.choose_picture)),
+                REQUEST_SELECT_IMAGE);
+    }
+
+    @Override
+    public void cleanAlbum() {
+        imageAlbum.setImageBitmap(null);
+        imageAlbum.setBackground(getDrawable(R.drawable.ic_notas_musicales));
+    }
+
+    @Override
+    public void showPermissionDenied() {
+        Snackbar.make(constraintLayoutFormActivity, getResources().getString(R.string.write_permission_denied), Snackbar.LENGTH_LONG).show();
     }
 
     @Override

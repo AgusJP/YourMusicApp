@@ -4,43 +4,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
-  <ImageView
-      android:id="@+id/imageView2"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/imageViewAlbum"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
+      android:background="@drawable/ic_notas_musicales"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/ic_launcher_foreground" />
+      app:shapeAppearanceOverlay="@style/roundimageview"
+      />
 
   <TextView
-      android:id="@+id/textView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/full_names"
-      android:textSize="20sp"
-      android:textColor="@android:color/black"
-      app:layout_constraintTop_toTopOf="@+id/imageView2"
-      app:layout_constraintStart_toEndOf="@+id/imageView2"
-      android:layout_marginStart="8dp"
+      android:id="@+id/textViewNameAlbum"
+      android:layout_width="168dp"
+      android:layout_height="34dp"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="15dp"
       android:layout_marginBottom="8dp"
-      app:layout_constraintBottom_toTopOf="@+id/textView2"
-      android:fontFamily="@font/aldrich"/>
+      android:fontFamily="@font/aldrich"
+      android:textColor="@android:color/white"
+      android:textSize="20sp"
+      app:layout_constraintBottom_toTopOf="@+id/textViewNameArtist"
+      app:layout_constraintStart_toEndOf="@+id/imageViewAlbum"
+      app:layout_constraintTop_toTopOf="@+id/imageViewAlbum"
+      tools:text="@tools:sample/full_names"
+      style="@style/backgroundText"/>
 
   <TextView
-      android:id="@+id/textView2"
-      android:layout_width="285dp"
-      android:layout_height="20dp"
-      tools:text="@tools:sample/lorem[4:10]"
-      app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-      app:layout_constraintStart_toEndOf="@+id/imageView2"
-      android:layout_marginStart="8dp"
-      app:layout_constraintEnd_toEndOf="parent"
+      android:id="@+id/textViewNameArtist"
+      android:layout_width="260dp"
+      android:layout_height="26dp"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="5dp"
       android:layout_marginEnd="8dp"
-      app:layout_constraintHorizontal_bias="0.050"
-      android:fontFamily="@font/aldrich"/>
+      android:layout_marginBottom="16dp"
+      android:fontFamily="@font/aldrich"
+      android:textColor="@android:color/black"
+      app:layout_constraintBottom_toBottomOf="@+id/imageViewAlbum"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/imageViewAlbum"
+      app:layout_constraintTop_toBottomOf="@+id/textViewNameAlbum"
+      tools:text="@tools:sample/lorem[4:10]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,11 @@ public interface FormInterface {
         void SaveAlbum();
         void AddSpinnerElement();
         void DeleteAlbum();
+        void showRequestPermission();
+        void selectImageFromGallery();
+        void cleanAlbum();
+        void showPermissionDenied();
+
     }
 
     public interface Presenter{
@@ -13,6 +18,10 @@ public interface FormInterface {
         int showError(int typeError);
         void AddSpinnerElement();
         void onClickDeleteButton();
+        void onClickAlbumImage();
+        void onClickCleanAlbum();
+        void permissionGranted();
+        void permissionDenied();
     }
 
 }

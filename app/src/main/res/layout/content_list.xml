@@ -8,10 +8,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="263dp"
-        android:layout_height="43dp"
+        android:id="@+id/textViewNameArtist"
+        android:layout_width="271dp"
+        android:layout_height="28dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/aldrich"
         android:text="@string/findElements"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"

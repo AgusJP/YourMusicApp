@@ -5,13 +5,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AlbumEntity {
-
+    private String id;
     private String artistName;
     private String albumName;
     private String company;
     private int appreciation;
     private Date date;
     private String genre;
+    private String image;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getArtistName() {
         return artistName;
@@ -34,8 +44,8 @@ public class AlbumEntity {
     public boolean setAlbumName(String albumName) {
         boolean result = false;
 
-        if (albumName.length() > 4 && albumName.matches("^([A-Z]{1}[a-z]+[ ]?){1,2}$") && artistName.length() < 21){
-            this.albumName = artistName;
+        if (albumName.length() > 4 && albumName.matches("^([A-Z]{1}[a-z]+[ ]?){1,2}$") && albumName.length() < 21){
+            this.albumName = albumName;
             result = true;
         }
         return result;
@@ -48,7 +58,7 @@ public class AlbumEntity {
     public boolean setCompany(String company) {
         boolean result = false;
 
-        if (company.length() > 4 && albumName.matches("^([A-Z]{1}[a-z]+[ ]?){1,2}$") && company.length() < 16){
+        if (company.length() > 4 && company.matches("^([A-Z]{1}[a-z]+[ ]?){1,2}$") && company.length() < 16){
             this.company = company;
             result = true;
         }
@@ -95,5 +105,13 @@ public class AlbumEntity {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

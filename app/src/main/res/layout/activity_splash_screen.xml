@@ -8,7 +8,7 @@
     tools:context=".v1.views.SplashScreen">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewNameAlbum"
         android:layout_width="217dp"
         android:layout_height="61dp"
         android:layout_marginBottom="112dp"
@@ -19,11 +19,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAlbum"
         app:layout_constraintVertical_bias="0.901" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewAlbum"
         android:layout_width="346dp"
         android:layout_height="321dp"
         app:layout_constraintBottom_toBottomOf="parent"

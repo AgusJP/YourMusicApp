@@ -29,4 +29,9 @@
     <string name="deleteMessageDialog">¿Estas seguro de que desea eliminar este álbum?</string>
     <string name="contact_agustin_jimenez_polonio_gmail_com">Contacto: agustin.jimenez.polonio@gmail.com</string>
     <string name="developed_by">Desarrollado por:</string>
+    <string name="deleteAlbumSuccess">" eliminado correctamente"</string>
+    <string name="deleteAlbumError">No se pudo eliminar este álbum.</string>
+    <string name="denied">Permiso denegado.</string>
+    <string name="write_permission_denied">Permiso denegado.</string>
+    <string name="choose_picture">Elige una foto.</string>
 </resources>
