@@ -34,12 +34,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
             super(itemView);
             ImageView_profile = (ImageView) itemView.findViewById(R.id.imageViewAlbum);
             TextView_nameAlbum = (TextView) itemView.findViewById(R.id.textViewNameAlbum);
-            TextView_nameArtist = (TextView) itemView.findViewById(R.id.textViewNameArtist);
+            TextView_nameArtist = (TextView) itemView.findViewById(R.id.albumsFound);
         }
 
         public void AlbumBind(AlbumEntity item) {
             //Faltaría asignar contenido al ImageView
-            if(item.getImage()!=null && item.getImage()!="") {
+            if(item.getImage()!=null && item.getImage().length()>1) {
                 byte[] decodedString = Base64.decode(item.getImage(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 ImageView_profile.setImageBitmap(decodedByte);

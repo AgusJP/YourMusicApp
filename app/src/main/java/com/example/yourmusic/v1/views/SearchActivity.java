@@ -3,6 +3,7 @@ package com.example.yourmusic.v1.views;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import com.example.yourmusic.v1.interfaces.SearchInterface;
 import com.example.yourmusic.v1.presenters.SearchPresenter;
@@ -37,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements SearchInterface
     private ArrayAdapter<String> adapter;
     private ArrayList<String> genero = null;
     ImageView imageViewSpinner;
-
+    EditText artistName;
     EditText editTextCalendar;
     ImageView imageViewCalendar;
     Calendar calendar;
@@ -65,6 +66,8 @@ public class SearchActivity extends AppCompatActivity implements SearchInterface
             }
         });
 
+        artistName = findViewById(R.id.artistName);
+
         //Boton guardar
         Button SearchButton = findViewById(R.id.searchButton);
 
@@ -86,11 +89,7 @@ public class SearchActivity extends AppCompatActivity implements SearchInterface
         });
 
         //Spinner
-        genero = new ArrayList<String>();
-        genero.add(getString(R.string.pop));
-        genero.add(getString(R.string.rock));
-        genero.add(getString(R.string.rap));
-        genero.add(getString(R.string.trap));
+        genero = presenter.getGenres();
 
         adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, genero);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -124,6 +123,11 @@ public class SearchActivity extends AppCompatActivity implements SearchInterface
 
     @Override
     public void SearchAlbum() {
+        Intent searchAlbum = getIntent();
+        searchAlbum.putExtra("name", artistName.getText().toString());
+        searchAlbum.putExtra("date", editTextCalendar.getText().toString());
+        searchAlbum.putExtra("spinner", spinner.getSelectedItemId());
+        setResult(RESULT_OK, searchAlbum);
         finish();
     }
 

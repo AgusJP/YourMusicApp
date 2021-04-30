@@ -50,5 +50,9 @@
     <string name="denied">Denied permission</string>
     <string name="choose_picture">Choose picture</string>
     <string name="write_permission_denied">Denied permission</string>
+    <string name="albumNotSave">Failed to save album.</string>
+    <string name="albumsFound">albums found.</string>
+    <string name="filledFields">Fill in all the fields in the right way.</string>
+    <string name="Choose">Choose a genre</string>
 
 </resources>

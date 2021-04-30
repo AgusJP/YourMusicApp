@@ -13,11 +13,10 @@
       android:layout_height="100dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
-      android:background="@drawable/ic_notas_musicales"
+      android:background="@drawable/ic_launcher_foreground"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:shapeAppearanceOverlay="@style/roundimageview"
-      />
+      app:shapeAppearanceOverlay="@style/roundimageview" />
 
   <TextView
       android:id="@+id/textViewNameAlbum"
@@ -29,14 +28,14 @@
       android:fontFamily="@font/aldrich"
       android:textColor="@android:color/white"
       android:textSize="20sp"
-      app:layout_constraintBottom_toTopOf="@+id/textViewNameArtist"
+      app:layout_constraintBottom_toTopOf="@+id/albumsFound"
       app:layout_constraintStart_toEndOf="@+id/imageViewAlbum"
       app:layout_constraintTop_toTopOf="@+id/imageViewAlbum"
       tools:text="@tools:sample/full_names"
       style="@style/backgroundText"/>
 
   <TextView
-      android:id="@+id/textViewNameArtist"
+      android:id="@+id/albumsFound"
       android:layout_width="260dp"
       android:layout_height="26dp"
       android:layout_marginStart="20dp"

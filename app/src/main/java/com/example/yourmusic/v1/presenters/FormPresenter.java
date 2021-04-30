@@ -2,7 +2,6 @@ package com.example.yourmusic.v1.presenters;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
@@ -10,20 +9,34 @@ import androidx.core.content.ContextCompat;
 
 import com.example.yourmusic.R;
 import com.example.yourmusic.v1.interfaces.FormInterface;
+import com.example.yourmusic.v1.models.AlbumEntity;
+import com.example.yourmusic.v1.models.AlbumModel;
 import com.example.yourmusic.v1.views.MyApp;
+
+import java.util.ArrayList;
 
 
 public class FormPresenter implements FormInterface.Presenter {
 
     private FormInterface.View view;
+    private AlbumModel albumModel;
 
     public FormPresenter(FormInterface.View view) {
         this.view = view;
+        albumModel = new AlbumModel();
     }
 
     @Override
-    public void onClickSaveAlbum() {
-        view.SaveAlbum();
+    public void onClickSaveAlbum(AlbumEntity album) {
+        if(album.getId()!="") {
+            albumModel.updateAlbum(album);
+            view.SaveAlbum();
+        }else if(albumModel.insertAlbum(album)) {
+            view.SaveAlbum();
+        } else {
+            //Album no se ha podido crear por algún motivo
+            view.showErrorWithToast(MyApp.getContext().getResources().getString(R.string.albumNotSave));
+        }
     }
 
     @Override
@@ -61,7 +74,8 @@ public class FormPresenter implements FormInterface.Presenter {
     }
 
     @Override
-    public void onClickDeleteButton() {
+    public void onClickDeleteButton(String id) {
+        albumModel.deleteAlbum(id);
         view.DeleteAlbum();
     }
 
@@ -93,5 +107,15 @@ public class FormPresenter implements FormInterface.Presenter {
         view.showPermissionDenied();
     }
 
+    @Override
+    public AlbumEntity getAlbumById(String id) {
+        AlbumEntity result = new AlbumEntity();
+        result = albumModel.getAlbumById(id);
+        return result;
+    }
 
+    @Override
+    public ArrayList<String> getSpinnerElements() {
+        return albumModel.getGenreAlbum();
+    }
 }

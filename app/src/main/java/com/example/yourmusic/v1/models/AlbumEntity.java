@@ -4,7 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AlbumEntity {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class AlbumEntity extends RealmObject {
+    @PrimaryKey
     private String id;
     private String artistName;
     private String albumName;
@@ -13,6 +17,7 @@ public class AlbumEntity {
     private Date date;
     private String genre;
     private String image;
+    private boolean fav;
 
 
     public String getId() {
@@ -113,5 +118,13 @@ public class AlbumEntity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isFav() {
+        return fav;
+    }
+
+    public void setFav(boolean fav) {
+        this.fav = fav;
     }
 }

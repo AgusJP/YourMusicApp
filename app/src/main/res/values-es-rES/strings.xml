@@ -34,4 +34,8 @@
     <string name="denied">Permiso denegado.</string>
     <string name="write_permission_denied">Permiso denegado.</string>
     <string name="choose_picture">Elige una foto.</string>
+    <string name="albumNotSave">Error al guadar album.</string>
+    <string name="albumsFound">albums encontrados.</string>
+    <string name="filledFields">Rellena todos los campos de manera correcta.</string>
+    <string name="Choose">Elige un género</string>
 </resources>

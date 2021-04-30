@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,13 +38,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.yourmusic.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -55,10 +62,12 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
     private FormInterface.Presenter presenter;
     private Context context;
     Button buttonSave;
+    Button deleteAlbum;
     private Spinner spinner = null;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> genero = null;
     private String id;
+    private Switch fav;
 
     EditText editTextCalendar;
     ImageView imageViewCalendar;
@@ -108,7 +117,10 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             }
         });
 
+        deleteAlbum = findViewById(R.id.delete);
+
         constraintLayoutFormActivity = findViewById(R.id.constraintForm);
+        fav = findViewById(R.id.switch2);
 
         //Damos click en la imagen del album o del background
         imageAlbum = findViewById(R.id.imageView);
@@ -134,7 +146,36 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Clicking Save Button");
-                presenter.onClickSaveAlbum();
+                if(album.setArtistName(artistText.getText().toString()) &&
+                        album.setAlbumName(albumText.getText().toString()) &&
+                        album.setCompany(companyText.getText().toString()) &&
+                        album.setAppreciation(appreciationText.getText().toString()) &&
+                        album.setDate(dateText.getText().toString()) &&
+                        spinner.getSelectedItemPosition()!=0){
+
+                    album.setFav(fav.isChecked());
+                    album.setGenre(spinner.getSelectedItem().toString());
+
+                    if(imageAlbum.getDrawable() == null || ((BitmapDrawable)imageAlbum.getDrawable()).getBitmap() == null){
+                        album.setImage("");
+                    }else{
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        ((BitmapDrawable)imageAlbum.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream.toByteArray();
+                        String imageInBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                        album.setImage(imageInBase64);
+                    }
+
+                    if(id!=null) {
+                        album.setId(id);
+                    }else {
+                        album.setId("");
+                    }
+                    presenter.onClickSaveAlbum(album);
+
+                }else{
+                    showErrorWithToast(getString(R.string.filledFields));
+                }
             }
         });
 
@@ -147,7 +188,7 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             }
         });
 
-        //Recuperar el Id del Album del LISTADO
+        /* //Recuperar el Id del Album del LISTADO
         id = getIntent().getStringExtra("id");
         if(id != null){
             Log.d(TAG,"Recuperando el Id");
@@ -155,19 +196,21 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
             artistText.setText(id);
         }else{
             Log.d(TAG,"Deshabilitar el boton de eliminar");
-        }
+        }*/
+
 
         //Creación del Spinner
-        genero = new ArrayList<String>();
+        /*genero = new ArrayList<String>();
+        genero.add(getString(R.string.Choose));
         genero.add(getString(R.string.pop));
         genero.add(getString(R.string.rock));
         genero.add(getString(R.string.rap));
-        genero.add(getString(R.string.trap));
-
-        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, genero);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        genero.add(getString(R.string.trap));*/
 
         spinner = (Spinner) findViewById(R.id.spinner);
+        genero = presenter.getSpinnerElements();
+        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, genero);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         imageViewSpinner = findViewById(R.id.spinnerAddForm);
@@ -281,6 +324,38 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
                 showCalendar();
             }
         });
+
+        //Recuperamos el Id del Album del LISTADO
+        id = getIntent().getStringExtra("id");
+
+        if(id != null){
+            //Metemos en todos los campos los valores del album seleccionado en el listado
+            AlbumEntity album = presenter.getAlbumById(id);
+            albumText.setText(album.getAlbumName());
+            artistText.setText(album.getArtistName());
+            companyText.setText(album.getCompany());
+            appreciationText.setText(album.getAppreciation()+"");
+            fav.setChecked(album.isFav());
+            SimpleDateFormat date = new SimpleDateFormat("dd/mm/yyyy");
+            dateText.setText(date.format(album.getDate())+"");
+
+            if(!album.getImage().equals("")){
+                imageAlbum.setBackground(null);
+                byte[] decodedString = Base64.decode(album.getImage(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imageAlbum.setImageBitmap(decodedByte);
+            }else{
+                //Si no posee imagen le ponemos la imagen por defecto y quitamos el background
+                imageAlbum.setImageDrawable(MyApp.getContext().getDrawable(R.drawable.ic_notas_musicales));
+                imageAlbum.setBackground(null);
+            }
+            spinner.setSelection(getGenre(spinner, album.getGenre()));
+        }else{
+            // Deshabilitamos y ocultamos el boton eliminar
+            deleteAlbum.setEnabled(false);
+            deleteAlbum.setVisibility(View.GONE);
+
+        }
     }
 
     public void showCalendar(){
@@ -337,6 +412,11 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
 
     }
 
+    @Override
+    public void showErrorWithToast(String text) {
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    }
+
     public void deleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.deleteTitleDialog);
@@ -346,7 +426,7 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
         builder.setPositiveButton(R.string.acceptDeleteButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.onClickDeleteButton();
+                presenter.onClickDeleteButton(id);
             }
         });
 
@@ -359,6 +439,18 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private int getGenre(Spinner sp, String string){
+
+        int i = 0;
+
+        for (int index=0;index<sp.getCount();index++){
+            if (sp.getItemAtPosition(index).equals(string)){
+                i = index;
+            }
+        }
+        return i;
     }
 
     @Override
@@ -473,6 +565,8 @@ public class FormActivity extends AppCompatActivity implements FormInterface.Vie
     @Override
     public void DeleteAlbum() {
         Log.d(TAG,"Deleting album");
+        Toast.makeText(FormActivity.this, getString(R.string.deleteAlbumSuccess), Toast.LENGTH_LONG)
+                .show();
         finish();
     }
 
