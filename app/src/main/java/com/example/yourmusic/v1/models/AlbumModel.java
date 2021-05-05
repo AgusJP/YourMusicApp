@@ -67,12 +67,16 @@ public class AlbumModel {
         return result;
     }
 
-    public void updateAlbum(AlbumEntity album){
+    public boolean updateAlbum(AlbumEntity album){
+        AtomicBoolean result = new AtomicBoolean(false);
         Realm realm = Realm.getDefaultInstance();
 
         realm.executeTransaction(r -> {
             realm.copyToRealmOrUpdate(album);
+            result.set(true);
         });
+
+        return result.get();
     }
 
     public ArrayList<String> getGenreAlbum(){
@@ -95,7 +99,7 @@ public class AlbumModel {
     }
 
     public boolean deleteAlbum(String id){
-        boolean result;
+        AtomicBoolean result = new AtomicBoolean(false);
         Realm realm = Realm.getDefaultInstance();
 
         realm.executeTransaction(r -> {
@@ -104,11 +108,11 @@ public class AlbumModel {
                     .findFirst();
 
             album.deleteFromRealm();
+            result.set(true);
         });
 
-        result = true;
         realm.close();
-        return result;
+        return result.get();
     }
 
     public ArrayList<AlbumEntity> getAlbumFilter(String artistName, Date date, String genre){
